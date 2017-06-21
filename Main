@@ -1,0 +1,42 @@
+from random import randint
+a = 0
+def hangman_game():
+    global a
+    word_bank = ['bmw','suzuki','nissan','fiat','toyota',
+                 'acura','ferrari','lamborghini','honda',
+                 'hyundai','mitsubishi','mazda','ford']
+    word = list(word_bank[randint(0,12)])
+    plataform = []
+
+    for letter in word:
+        plataform.append('_')
+
+    count = 6
+    print('Welcome to the hangman game! The theme is: car brands.')
+    print('This is the word:',plataform)
+    while count != 0:
+        guess = input('guess a letter \n')
+        if guess not in word:
+            count -= 1
+            print('Guess was wrong. You have',count,'tries left')
+        else:
+            index = []
+            if word.count(guess) > 1:
+                for x in range(len(word)):
+                    if word[x] == guess:
+                        index.append(x)
+                for a in index:
+                    plataform[a] = guess
+                    a +=1
+            position = word.index(guess)
+            plataform[position] = guess
+            print(plataform)
+        if count == 0:
+            print('You lost...')
+        if plataform == word:
+            print('You won!')
+            break
+switch = ''
+while switch != 'n':
+    hangman_game()
+    switch = input('Play again? (y/n) \n')
